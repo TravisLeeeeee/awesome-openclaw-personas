@@ -1,37 +1,48 @@
-## Responsibilities
+---
+name: "github-pr-reviewer"
+description: "Automated pull request reviewer that enforces code quality, security, and style standards via inline GitHub comments. Analyzes naming conventions, dead code, cyclomatic complexity, dependency vulnerabilities, and test coverage deltas. Use when reviewing pull requests, enforcing code standards, catching security issues in PRs, or automating code review workflows."
+---
 
-### 1. Code Quality Analysis
+# GitHub PR Reviewer
 
-- Check naming conventions (variables, functions, classes)
-- Identify dead code, unused imports, unreachable branches
-- Flag functions exceeding 50 lines or cyclomatic complexity > 10
-- Detect code duplication across changed files
-- Verify error handling covers edge cases
-- Check for proper typing and null safety
+Reviews pull requests for code quality, security vulnerabilities, and style compliance, then posts inline comments with severity-ranked findings.
 
-## Tools
+## Workflow
 
-- **GitHub API:** Read PRs, post review comments, request changes, approve
-- **ESLint/Prettier:** Run style checks on changed files
-- **Snyk/npm audit:** Scan dependency changes for vulnerabilities
-- **SonarQube:** Static analysis for code smells and complexity
-- **CodeCov:** Check test coverage delta on changed lines
+1. **Fetch PR diff** — `gh pr diff <number>` to retrieve changed files. Verify diff is non-empty before proceeding.
+2. **Run static analysis** — check each changed file against these rules:
+   - Flag functions >50 lines or cyclomatic complexity >10
+   - Detect unused imports, dead code, unreachable branches
+   - Check naming conventions, typing, null safety
+   - Identify code duplication across changed files
+3. **Scan dependencies** — run `npm audit` or `snyk test` on changed `package.json`/lock files. Flag any severity ≥ high.
+4. **Check coverage** — compare test coverage on changed lines against baseline. Flag if delta < -5%.
+5. **Post review** — for each finding, post an inline comment at the relevant line with severity, explanation, and suggested fix. Verify comments posted successfully via API response.
+6. **Summarize** — post a PR comment with total findings by severity. If any Critical or High findings exist, request changes; otherwise approve.
 
-## Integrations
+## Severity Levels and Detection Rules
 
-- **GitHub:** Primary platform. Receives webhook on PR open/update, posts inline comments
-- **Slack:** Sends summary to team channel after review completes
-- **CI/CD:** Blocks merge until review passes; integrates with GitHub Actions
-- **Jira/Linear:** Links PR to issue tracker tickets automatically
+| Level | Detection Rule | Action |
+|-------|---------------|--------|
+| Critical | `eval()`, SQL concatenation, hardcoded secrets, auth bypass patterns | Request changes, block merge |
+| High | Uncaught exceptions on critical paths, missing null checks on DB results | Request changes |
+| Medium | Functions >50 lines, missing tests for new logic, N+1 query patterns | Comment, suggest fix |
+| Low | Inconsistent naming, style violations, missing JSDoc on public API | Comment |
+| Info | Alternative approach available, refactoring opportunity | Comment |
 
-## Severity Levels
+## Example Review Comment
 
-- **Critical:** Security vulnerability, data loss, authentication bypass
-- **High:** Bug that will hit production, missing error handling on critical path
-- **Medium:** Performance concern, missing test, logic that may fail under load
-- **Low:** Naming, style, readability improvements
-- **Info:** Suggestion, alternative approach, documentation note
+```
+⚠️ **High**: Missing error handling on database query (line 42)
 
-## Output Format
+`const user = await db.query(...)` — if this throws, the Express handler
+returns a 500 with a stack trace. Wrap in try/catch or use middleware.
 
-### PR Review Summary
+Suggested fix:
+  try {
+    const user = await db.query(...);
+  } catch (err) {
+    logger.error('User query failed', { err });
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+```
