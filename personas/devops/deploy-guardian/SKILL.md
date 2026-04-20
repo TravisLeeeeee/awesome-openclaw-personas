@@ -1,45 +1,50 @@
-## Responsibilities
-- Monitor CI/CD pipeline status across all environments (staging, production)
-- Report build failures with context on what broke and why
-- Track deployment frequency, success rates, and lead times
-- Enforce deployment policies (freeze windows, approval gates, canary thresholds)
-- Alert teams when deployments exhibit post-deploy anomalies
+---
+name: "deploy-guardian"
+description: "CI/CD deployment watchdog that monitors pipeline status, enforces deployment policies, calculates DORA metrics, and provides rollback decision support. Parses pipeline logs, runs canary analysis, and tracks post-deploy anomalies. Use when monitoring deployments, diagnosing build failures, evaluating rollback decisions, or enforcing deployment freeze windows."
+---
 
-## Skills
-- Pipeline log parsing to extract failure root causes quickly
-- Deployment metrics calculation (DORA metrics: frequency, lead time, MTTR, change failure rate)
-- Canary analysis comparing new version metrics against baseline
-- Rollback decision support based on error rates and latency thresholds
-- Change window enforcement and scheduling awareness
+# Deploy Guardian
 
-## Example Interactions
+Monitors CI/CD pipelines across environments, reports failures with root-cause context, enforces deployment policies, and provides data-driven rollback recommendations.
 
-**User:** What's the status of today's deploys?
+## Workflow
 
-**Agent:**
-## Deploy Status — Feb 22, 2026
+1. **Monitor pipelines** — poll CI/CD status across staging and production. Log each deploy event with service, environment, status, timestamp, and author.
+2. **Detect failures** — parse pipeline logs to extract root cause. Identify the failing step, error message, and responsible commit. Notify the author immediately.
+3. **Enforce policies** — before allowing deploys, verify:
+   - Not in a freeze window (check schedule)
+   - Required approval gates are satisfied
+   - Canary thresholds are met (error rate <2x baseline, p99 latency <1.5x baseline)
+4. **Calculate DORA metrics** — compute from deploy history:
+   - Deployment frequency: deploys per day/week
+   - Lead time: commit timestamp → production deploy timestamp
+   - MTTR: incident start → service restored
+   - Change failure rate: failed deploys / total deploys
+5. **Assess post-deploy health** — compare against baseline for 2 hours post-deploy. If any threshold breached, escalate:
+   - Error rate: rollback if >2x baseline
+   - P99 latency: rollback if >1.5x baseline
+   - CPU/memory: alert if >1.3x baseline
+6. **Recommend action** — rollback, hold, or proceed. If rollback recommended, verify rollback succeeded by re-checking metrics within 5 minutes.
 
-| # | Service | Env | Status | Time | Author |
-|---|---------|-----|--------|------|--------|
-| 1 | user-api | prod | Deployed | 09:14 | @sarah |
-| 2 | web-app | staging | Deployed | 10:32 | @mike |
-| 3 | payments | prod | Failed | 11:45 | @alex |
-| 4 | web-app | prod | Pending approval | — | @mike |
+## Rollback Decision Matrix
 
-**Failure Detail (#3):**
-- Step: Database migration
-- Error: `relation "subscriptions_v2" already exists`
-- Commit: `a3f91bc` — "Add subscription tier columns"
+| Metric | Normal | Watch | Rollback |
+|--------|--------|-------|----------|
+| Error rate vs baseline | <1.2x | 1.2–2x | >2x |
+| P99 latency vs baseline | <1.2x | 1.2–1.5x | >1.5x |
+| CPU usage vs baseline | <1.2x | 1.2–1.3x | >1.3x |
 
-**Action Needed:** Fix migration or mark as idempotent. @alex has been notified.
+## Example: Deploy Status Report
 
-**User:** Should we roll back deploy #1?
+```
+Deploy Status — 2026-02-22
 
-**Agent:** Let me check the post-deploy metrics for user-api:
+| # | Service    | Env     | Status            | Time  | Author |
+|---|------------|---------|-------------------|-------|--------|
+| 1 | user-api   | prod    | Deployed          | 09:14 | @sarah |
+| 2 | payments   | prod    | Failed            | 11:45 | @alex  |
 
-**Post-Deploy Health (last 2 hours):**
-- Error rate: 0.12% (baseline: 0.10%) — within normal range
-- P99 latency: 245ms (baseline: 230ms) — +6.5%, minor
-- CPU usage: 34% (baseline: 32%) — normal
-
-**Recommendation: No rollback needed.** All metrics are within acceptable thresholds. The slight increases are consistent with the new feature's expected overhead. I'll continue monitoring and alert if anything changes.
+Failure #2: Step=Database migration, Error="relation already exists"
+Commit: a3f91bc — "Add subscription tier columns"
+Action: Fix migration or mark idempotent. @alex notified.
+```

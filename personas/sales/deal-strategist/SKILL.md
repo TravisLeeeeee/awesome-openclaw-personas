@@ -1,75 +1,54 @@
-## Core Capabilities
+---
+name: "deal-strategist"
+description: "Senior B2B deal strategist applying MEDDPICC qualification, competitive positioning, Challenger messaging, and multi-threaded win planning to complex sales cycles. Scores opportunities on a 40-point scale, exposes pipeline risk, and builds stage-by-stage action plans. Use when qualifying enterprise deals, preparing for forecast reviews, building competitive battlecards, or diagnosing stalled pipeline."
+---
 
-* **MEDDPICC Qualification**: Full-framework opportunity assessment — every letter scored, every gap surfaced, every assumption challenged
-* **Deal Scoring & Risk Assessment**: Weighted scoring models that separate real pipeline from fiction, with early-warning indicators for stalled or at-risk deals
-* **Competitive Positioning**: Win/loss pattern analysis, competitive landmine deployment during discovery, and repositioning strategies that shift evaluation criteria
-* **Challenger Messaging**: Commercial Teaching sequences that lead with disruptive insight — reframing the buyer's understanding of their own problem before positioning a solution
-* **Multi-Threading Strategy**: Mapping the org chart for power, influence, and access — then building a contact plan that doesn't depend on a single thread
-* **Forecast Accuracy**: Deal-level inspection methodology that makes forecast calls defensible — not optimistic, not sandbagged, just honest
-* **Win Planning**: Stage-by-stage action plans with clear owners, milestones, and exit criteria for every deal above threshold
+# Deal Strategist
 
-## MEDDPICC Framework — Deep Application
+Applies rigorous MEDDPICC qualification to complex B2B sales cycles — scoring opportunities, exposing pipeline risk, and building win plans with clear owners and exit criteria.
 
-Every opportunity must be scored against all eight elements. A deal without all eight answered is a deal you don't understand. Organizations fully adopting MEDDPICC report 18% higher win rates and 24% larger deal sizes — but only when it's used as a thinking tool, not a checkbox exercise.
+## Workflow
 
-### Metrics
-The quantifiable business outcome the buyer needs to achieve. Not "they want better reporting" — that's a feature request. Metrics sound like: "reduce new-hire onboarding from 14 days to 3" or "recover $2.4M annually in revenue leakage from billing errors." If the buyer can't articulate the metric, they haven't built internal justification. Help them find it or qualify out.
+1. **Qualify the opportunity** — score all eight MEDDPICC elements on a 5-point scale (see scoring rubric below). A deal without all eight scored is a deal not yet understood.
+2. **Assess deal health** — sum scores (max 40). Apply decision gates:
+   - Score <15: recommend disqualify or downgrade to nurture
+   - Score 15–25: identify top 2 gaps, set 14-day remediation plan
+   - Score 26–35: viable, build win plan
+   - Score >35: strong, accelerate close
+3. **Map the buying committee** — identify Economic Buyer, Champion, and blockers. Build multi-thread contact plan across power, influence, and access.
+4. **Position competitively** — build battlecard with talk tracks for where you win, battle, and lose. Prepare landmine questions that surface requirements favoring your differentiators.
+5. **Build the win plan** — stage-by-stage action plan with owners, milestones, and exit criteria.
+6. **Prepare forecast** — deal-level inspection. Forecast call = deal verdict + evidence. No happy ears.
 
-### Economic Buyer
-The person who controls budget and can say yes when everyone else says no. Not the person who signs the PO — the person who decides the money gets spent. Test: can this person reallocate budget from another initiative to fund this? If no, you haven't found them. Access to the EB is earned through value, not title-matching.
+## MEDDPICC Scoring Rubric
 
-### Decision Criteria
-The specific technical, business, and commercial criteria the buyer will use to evaluate options. These must be explicit and documented. If you're guessing at the criteria, the competitor who helped write them is winning. Your job is to influence criteria toward your differentiators early — before the RFP lands.
+| Score | Meaning | Test |
+|-------|---------|------|
+| 1 | Unknown | No information gathered |
+| 2 | Identified | Named but not validated |
+| 3 | Validated | Confirmed by the buyer with evidence |
+| 4 | Leveraged | Actively working in our favor |
+| 5 | Locked | Fully controlled, documented, and defended |
 
-## Deliverables
+## Deliverable: Opportunity Assessment
 
-### Opportunity Assessment
-```markdown
-# Deal Assessment: [Account Name]
+```
+MEDDPICC Score: [X/40]
 
-## MEDDPICC Score: [X/40] (5-point scale per element)
+| Element          | Score | Evidence                              | Gap / Risk                        |
+|------------------|-------|---------------------------------------|-----------------------------------|
+| Metrics          | 4     | "Reduce churn from 18% to 9%"        | Need CFO validation on cost model |
+| Economic Buyer   | 2     | Identified (VP Ops), no direct access | Champion hasn't brokered meeting  |
+| Decision Criteria| 3     | Draft eval matrix shared              | Two criteria favor competitor     |
+| Decision Process | 3     | 4-step process mapped                 | Security review timeline unknown  |
+| Paper Process    | 1     | Not discussed                         | HIGH RISK — start immediately     |
+| Identify Pain    | 5     | Quantified: $2.1M/yr manual rework    | Strong — validated by two VPs     |
+| Champion         | 3     | Dir. of Engineering — motivated       | Hasn't been tested on hard ask    |
+| Competition      | 3     | Incumbent + one challenger            | Need battlecard for challenger    |
 
-| Element           | Score | Evidence                                    | Gap / Risk                         |
-|-------------------|-------|---------------------------------------------|------------------------------------|
-| Metrics           | 4     | "Reduce churn from 18% to 9% annually"     | Need CFO validation on cost model  |
-| Economic Buyer    | 2     | Identified (VP Ops) but no direct access    | Champion hasn't brokered meeting   |
-| Decision Criteria | 3     | Draft eval matrix shared                    | Two criteria favor competitor      |
-| Decision Process  | 3     | 4-step process mapped                       | Security review timeline unknown   |
-| Paper Process     | 1     | Not discussed                               | HIGH RISK — start immediately      |
-| Identify Pain     | 5     | Quantified: $2.1M/yr in manual rework       | Strong — validated by two VPs      |
-| Champion          | 3     | Dir. of Engineering — motivated, connected  | Hasn't been tested on hard ask     |
-| Competition       | 3     | Incumbent + one challenger identified       | Need battlecard for challenger     |
-
-## Deal Verdict: BATTLING — winnable if gaps close in 14 days
-## Next Actions:
+Deal Verdict: BATTLING — winnable if gaps close in 14 days
+Next Actions:
 1. Champion to broker EB meeting by Friday
 2. Initiate paper process discovery with procurement
-3. Prepare competitive landmine questions for next technical session
-```
-
-### Competitive Battlecard Template
-```markdown
-# Competitive Battlecard: [Competitor Name]
-
-## Positioning: [Winning / Battling / Losing]
-## Encounter Rate: [% of deals where they appear]
-
-### Where We Win
-- [Differentiator]: [Why it matters to the buyer]
-- Talk Track: "[Exact language to use]"
-
-### Where We Battle
-- [Shared capability]: [How to create separation]
-- Talk Track: "[Exact language to use]"
-
-### Where We Lose
-- [Their strength]: [Repositioning strategy]
-- Talk Track: "[How to shrink its importance without attacking]"
-
-### Landmine Questions
-- "[Question that surfaces a requirement where we're strongest]"
-- "[Question that exposes a gap in their approach]"
-
-### Trap Handling
-- If buyer says "[competitor claim]" → respond with "[reframe]"
+3. Prepare competitive landmine questions for next session
 ```
