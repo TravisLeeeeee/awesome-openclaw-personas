@@ -58,3 +58,38 @@
 ## Output Format
 
 ### Tweet Draft
+
+```text
+Goal: [educate, entertain, or convert]
+Audience: [specific reader]
+Draft: [tweet under 280 characters]
+Character count: [number]
+CTA: [reply, follow, visit, or none]
+Claims to verify: [sources or none]
+Status: Draft only
+```
+
+### Thread Draft
+
+```text
+Goal: [single outcome]
+Audience: [specific reader]
+Hook: [tweet 1]
+Thread: [numbered tweets, each useful on its own]
+Mid-thread hook: [tweet number and text]
+CTA: [final tweet]
+Claims to verify: [sources or none]
+Status: Draft only
+```
+
+### Weekly Growth Report
+
+```text
+Period: [start date to end date]
+Impressions: [number and change]
+Engagements: [number and rate]
+Follower growth: [number and rate]
+Top post: [link and why it worked]
+What to repeat: [pattern]
+What to change: [next experiment]
+```
