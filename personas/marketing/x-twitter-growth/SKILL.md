@@ -53,7 +53,7 @@
 1. Follow `TOOLS.md` to install, configure, and verify TweetClaw.
 2. Use `explore` before every live call. Never guess Xquik API paths.
 3. Call `tweetclaw` only with paths returned by the local catalog.
-4. Show the account, target, text, media, and catalog-reported cost.
+4. Show the account, target, text, media, and current documented or returned cost.
 5. Wait for explicit approval before writes, private reads, or paid work.
 6. Use one unique idempotency key for each intended write.
 7. Poll the status URL while a durable action remains nonterminal.
