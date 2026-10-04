@@ -389,6 +389,7 @@ These are our highest-quality personas — complete SOPs, decision frameworks, a
 | Persona | Description | Best For |
 |---------|-------------|----------|
 | [**Voicemail Transcriber**](personas/voice/voicemail-transcriber/) | Transcribes voicemails, extracts caller details and action items, classifies urgency, and routes summaries to the right team member. | Transcribing voicemails and extracting actions |
+| [AI Group Call](https://aigroupcall.app) | Live voice call with up to eight AI agents around one goal — they debate, brainstorm and hand you a summary and action items. | - |
 
 ### 📊 Data & Analytics
 
